@@ -71,3 +71,16 @@ def search_results_view(request: HttpRequest):
 
 
     return render(request, "blogs/search.html", {"blogs" : blogs}) 
+
+def blogs_home_view_cat(request: HttpRequest, cat):
+
+    if "order" in request.GET and request.GET["order"] == "top":
+        blogs = Blog.objects.filter(category=cat)
+    else:
+        blogs = Blog.objects.filter(category=cat)
+
+    
+
+    blogs_count = blogs.count()
+
+    return render(request, "blogs/show_blogs.html", {"blogs" : blogs, "blogs_count" : blogs_count})
