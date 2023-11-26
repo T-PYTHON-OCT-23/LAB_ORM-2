@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<body>
+    <div class="container py-5">
+        <h1 class="text-center mb-5">myblog</h1>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">جزر المالديف الجميلة</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">أهلا يا أصدقاء .. الصيف الماضي زرنا جزر المالديف لمدة ١٢ يوماً كانت من أجمل الرحلات تمنيت أن الوقت فيها ما ينقضي.. تنقلنا خلال هذه المدة بين ٤ جزر، مما أثار استغراب</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="container py-5">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">سلمون بالليمون والعسل</a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">أهلاً يا أصدقاء ،، أشارككم اليوم وصفة لذيذة لسمك السلمون هذه أحد الوصفات التي ستجعلك تشعر أنك أهدرت سمك السلمون كل مرة طبخته بطريقة أخرى تذوقت الطبق لأول مرة في مطعم تشيزكيك.</div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <div class="container py-5">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse3">باستا العدس بالخضار ، نباتية وَ خالية من الجلوتين</a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body">أهلا يا أصدقاء🌿 خلال فترة التزامي بنظام غذائي خالي من الجلوتين Gluten Free كنت أبحث عن بدائل لباستا القمح .. وجدت من ضمن خيارات السوبرماركت القريب من منزلي باستا العدس، مكتوب على</div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+
+
+{% endblock %}
