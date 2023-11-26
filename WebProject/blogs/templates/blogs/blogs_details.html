@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} {{ blog.title }} {% endblock %}
+
+{% block content %}
+
+<div class="container-1">
+    <div class="row m-5 p-5">
+        <h1 class="display-1 text-center mb-5"> Title: {{ blog.title }}</h1>
+        <a class="btn btn-outline-warning" type="button" href="{% url 'blogs:blogs_home_view' %}"> Back to all blogs</a>
+        <div class="col-12 p-4">
+            <p class="display-6 text-center p-5"> Content:  {{ blog.content }}</p>
+            <div class="col-6 d-flex justify-content-center align-items-center">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
