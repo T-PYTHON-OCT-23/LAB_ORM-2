@@ -4,10 +4,7 @@ from .models import Blog1
 # Create your views here.
 
 def read_blog(request : HttpRequest):
-    if 'category' in request.GET and request.GET['category']=='Food':
-        blogs=Blog1.objects.filter(category__containes ='Food')
-    else:
-        blogs=Blog1.objects.all()
+    blogs=Blog1.objects.all()
     return render(request, "Blog/read_blog.html", {"blogs" : blogs})
 
 def add_blog(request : HttpRequest):
@@ -55,4 +52,6 @@ def search_page(request: HttpRequest):
     else:
         blogs = Blog1.objects.all()
     return render(request,'Blog/search_page.html',{'blogs':blogs})
+
+
 
