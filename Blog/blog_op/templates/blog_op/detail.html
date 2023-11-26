@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+{% block title %}published detail{% endblock %}
+
+{% block content %}
+
+<div class="container" >
+    <div class="row">
+
+        <div class="col">
+            <div class="blog-post">
+                <img style="width: 30%;" src="{{puplidhed.image.url}}" alt="">
+                <h2 class="blog-post-title">{{puplidhed.title}}</h2>
+
+                <img src="{{p.image.url}}" alt="">
+                <p>{{puplidhed.content}}</p>
+          
+              </div>
+            
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
