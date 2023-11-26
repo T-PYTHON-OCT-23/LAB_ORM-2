@@ -5,9 +5,45 @@ from django.utils import timezone
 from .forms import PostForm
 
 
+CATEGORY_CHOICES = [
+    ("tech", "Tech"),
+    ("sports", "Sports"),
+    ("entertainment", "Entertainment"),
+    ("politics", "Politics"),
+    ("fashion", "Fashion"),
+    ("food", "Food"),
+    ("travel", "Travel"),
+    ("other", "Other"),
+]
+
 def post_list(request):
-    posts = Post.objects.filter(is_published=True).order_by('-published_at')
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    orderby=request.GET.get('OrderBy')
+    
+    if orderby=="p_a":
+        posts = Post.objects.all().order_by('-published_at')
+
+    else:
+        posts = Post.objects.all()
+
+    search=request.GET.get('search')
+    if search and orderby=="p_a":
+        posts = Post.objects.filter(title__icontains=search).order_by('-published_at')
+    
+    cat = request.GET.get('category')
+    
+    if cat and orderby=="p_a":
+        posts = Post.objects.filter(category=cat).order_by('-published_at')
+        
+    
+    if search:
+        posts = Post.objects.filter(title__icontains=search)
+    
+    
+    if cat:
+        posts = Post.objects.filter(category=cat)
+
+
+    return render(request, 'blog/post_list.html', {'posts': posts , 'categories': CATEGORY_CHOICES})
 
 def add_post(request):
     if request.method == 'POST':

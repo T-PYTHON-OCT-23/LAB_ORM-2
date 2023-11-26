@@ -6,6 +6,31 @@
 {% block content %}
     <div class="post-list">
         <h2>Blog Posts</h2>
+          
+        <!-- Button to order by 'published_at' -->
+        <a href="{% url 'blog:post_list' %}?OrderBy=p_a" class="btn btn-order-by">
+            Order by Published At
+        </a>
+
+          <!-- Category Filter Form -->
+          <form method="GET" action="{% url 'blog:post_list' %}" class="category-form">
+            <select name="category" class="category-select">
+                <option value="" selected disabled>Select Category</option>
+                {% for category_key, category_name in categories %}
+                    <option value="{{ category_key }}">{{ category_name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-filter">Filter by Category</button>
+        </form>
+
+        
+        <!-- Search Form -->
+        <form method="GET" action="{% url 'blog:post_list' %}" class="search-form">
+            <input type="text" name="search" placeholder="Search...">
+            <button type="submit" class="btn btn-search">Search</button>
+        </form>
+        
+
         {% for post in posts %}
             <div class="post">
                 <a href="{% url 'blog:view_post' post.id %}">
@@ -97,11 +122,203 @@
             background-color: #218838;
         }
 
+        
+        .btn-order-by {
+            padding: 8px 16px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+
+        .btn-order-by:hover {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        
+        .search-form {
+            margin-bottom: 20px;
+        }
+
+        .search-form input {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+    .search-form,
+    .category-form {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .search-form input,
+    .category-form select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        flex: 1;
+    }
+
+    .btn-search,
+    .btn-filter {
+        padding: 10px 20px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-search {
+        background-color: #28A745;
+        color: #fff;
+        border: 2px solid #28A745;
+    }
+
+    .btn-filter {
+        background-color: #007BFF;
+        color: #fff;
+        border: 2px solid #007BFF;
+    }
+
+    .btn-search:hover,
+    .btn-filter:hover {
+        background-color: #218838;
+        border-color: #218838;
+    }
+
+    .post-list {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .post {
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    h3 {
+        color: #007BFF;
+        margin-bottom: 10px;
+    }
+
+    .minimized-image-container {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .minimized-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .post-content {
+        color: #555;
+    }
+
+    .post-meta {
+        color: #777;
+        font-style: italic;
+    }
+
+    .edit-post-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-success {
+        background-color: #28A745;
+        color: #fff;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .btn-edit-post {
+        color: #007BFF;
+        text-decoration: none;
+        font-weight: bold;
+        transition: text-decoration 0.3s ease;
+    }
+
+    .btn-edit-post:hover {
+        text-decoration: underline;
+    }
+
+    hr {
+        border-color: #ddd;
+        margin: 15px 0;
+    }
+
+    a {
+        color: #28A745;
+        text-decoration: none;
+    }
+        .btn-search {
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: #28A745;
+            color: #fff;
+            border: 2px solid #28A745;
+        }
+
+        .btn-search:hover {
+            background-color: #218838;
+            border-color: #218838;
+        }
         .btn-edit-post {
             color: #007BFF;
             text-decoration: none;
             font-weight: bold;
             transition: text-decoration 0.3s ease;
+        }
+
+        .btn-order-by {
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            border: 2px solid #007BFF;
+        }
+
+        .btn-order-by:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
         }
 
         .btn-edit-post:hover {
