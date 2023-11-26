@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Read All Blogs {% endblock %}
+
+{% block content %}
+
+<section>
+
+    <h1 class="title">All Blogs</h1>
+
+    <div class="row">
+
+        {% for blog in blogs %}
+
+        <div class="col-6">
+            <div class="box">
+                <a href="{% url 'main:detail_blog' blog.id %}" class="h1"> {{ blog.name }} {{ blog.id }}</a>
+                <h4> paragraph: {{blog.paragraph}}</h4>
+                <h4> category: {{ blog.category }}</h4>
+                <h4><img src="{{blog.image.url}}" /></h4>
+                <h6>Release Date: {{ blog.release_date }} </h6>
+                <button class="btn btn-primary dropdown-toggle" type="botton" data-bs-toggle="dropdown" aria-e>
+                    category
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'blog:read_blog' %}?category=Coffee"> Coffee </a></li>
+                    <li><a class="dropdown-item" href="{% url 'blog:read_blog' %}?category=Tea"> Tea </a></li>
+                    <li><a class="dropdown-item" href="{% url 'blog:read_blog' %}?category=Matcha"> Matcha </a></li>
+                    <li><a class="dropdown-item" href="{% url 'blog:read_blog' %}?category=Water"> Water </a></li>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
