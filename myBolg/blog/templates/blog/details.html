@@ -1,0 +1,55 @@
+{% extends 'main/base.html' %}
+
+{% block title %} {{blog.title}} {% endblock %}
+
+{% block content %}
+<div class = "form">
+<section class="container  content ">
+
+    <h1 class = "text-uppercase fw-bold fs-1 text-center">Details Post</h1>
+
+    
+        <table class="table mb-3">
+            <thead>
+              <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Content</th>
+                <th scope="col">Publish status</th>
+                <th scope="col">Category</th>
+                <th scope="col"> Published Time </th>
+                <th scope="col"> Image </th>
+              </tr>
+            </thead>
+     
+
+            <div class="col-6 ">
+         
+
+                <tbody>
+                  <tr>
+                   
+                    <td> {{ blog.title }}</td>
+                    <td>{{blog.content}}</td>
+                    <td> {{ blog.is_published }}</td>
+                    <td> {{ blog.category }}</td>
+                    <td> {{ blog.published_at }}</td>
+                    <td><img width="70px" height="70px" src="{{blog.image.url}}" /></td>
+                  </tr>
+                  </tbody>
+            </div>
+               
+        </table>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Edit
+        </button>
+        <ul class="dropdown-menu ">
+          <li><a class="dropdown-item" href="{% url 'blog:updateBlog' blog.id %}">Update</a></li>
+          <li><a class="dropdown-item" href="{% url 'blog:deleteBlog' blog.id %}">Delete</a></li>
+        </ul>
+      </div>
+</section>
+</div>
+
+
+{% endblock %}
