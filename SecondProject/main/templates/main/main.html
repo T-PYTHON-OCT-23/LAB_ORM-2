@@ -1,0 +1,34 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}Main {% endblock %}
+</title>
+
+{% block content %}
+    
+    <div class="container">
+<br>
+        <div class="row mt-4">
+            <div class="col-12 col-md-6 order-2 order-md-1">
+                    <div id="welcom" class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
+                        <h2>Welcome to Blog website</h2>
+                    </div>
+            </div>
+                <div class="col-12 col-md-6 order-2 order-md-1 ">
+                    <img src="\static\blog.jpg" alt="blog" />
+                </div>
+        </div>
+        <hr />
+
+        <div class="row">
+            <div class="col"><br>
+                <p>A blog (a truncation of "weblog")[1] is an informational website consisting of discrete, often informal diary-style text entries (posts). Posts are typically displayed in reverse chronological order so that the most recent post appears first, at the top of the web page. Until 2009, blogs were often the work of a single individual, occasionally of a small group, and often covered a single subject or topic. In the 2010s, "multi-author blogs" (MABs) emerged, featuring the writing of multiple authors and sometimes professionally edited. MABs from newspapers, other media outlets, universities, think tanks, advocacy groups, and similar institutions account for an increasing quantity of blog traffic. The rise of Twitter and other "microblogging" systems helps integrate MABs and single-author blogs into the news media. Blog can also be used as a verb, meaning to maintain or add content to a blog.</p>
+            </div>
+
+        </div>
+
+    </div>
+<br>
+<br>
+{% endblock %}
