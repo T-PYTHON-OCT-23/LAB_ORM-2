@@ -53,5 +53,9 @@ def search_page(request: HttpRequest):
         blogs = Blog1.objects.all()
     return render(request,'Blog/search_page.html',{'blogs':blogs})
 
-
-
+def category_blog(request: HttpRequest,cat):
+    if 'cat' in request.GET :
+        blogs=Blog1.objects.filter(category=cat)
+    else:
+        blogs = Blog1.objects.all()
+    return render(request,'Blog/read_blog.html',{'blogs':blogs})
