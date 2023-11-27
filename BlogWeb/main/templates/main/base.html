@@ -30,8 +30,9 @@
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'Blog:category_blog' 'Food'%}">Food</a></li>
-                  <li><a class="dropdown-item" href="">Travel</a></li>
-                  <li><a class="dropdown-item" href="">Fashion</a></li>
+                  <li><a class="dropdown-item" href="{% url 'Blog:category_blog' 'Travel'%}">Travel</a></li>
+                  <li><a class="dropdown-item" href="{% url 'Blog:category_blog' 'Fashion'%}">Fashion</a></li>
+                  <li><a class="dropdown-item" href="{% url 'Blog:category_blog' 'Personal'%}">Personal</a></li>
                 </ul>
               </li>
             </ul>      
