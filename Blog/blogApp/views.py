@@ -76,18 +76,15 @@ except Exception as e:
 
 def category_view (request :HttpRequest , item):
 
-    if "order" in request.GET and request.GET["order"] == "top":
-        blogs = Blog.objects.filter(category=item).order_by("-rating")[0:10]
+
+    if item== "Health":
+        blogs = Blog.objects.filter(category= "Health")
+    elif item == "Stories":
+        blogs = Blog.objects.filter(category= "Stories")
+    elif item == "Science":
+        blogs = Blog.objects.filter(category= "Science")
     else:
-        blogs = Blog.objects.filter(category=item).order_by("-release_date")[0:10]
-    # if 'category' in request.GET and request.GET["category"] == "Health":
-    #     blogs = Blog.objects.filter(category__contains= "Health")
-    # elif 'category' in request.GET and request.GET["category"] == "Stories":
-    #     blogs = Blog.objects.filter(category__contains= "Stories")
-    # elif 'category' in request.GET and request.GET["category"] == "Science":
-    #     blogs = Blog.objects.filter(category__contains= "Science")
-    # else:
-    #     blogs = Blog.objects.all()
+        blogs = Blog.objects.all()
 
     return render(request, "blogApp/read_blog.html", {"blogs" : blogs})
 
