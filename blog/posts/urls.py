@@ -9,7 +9,6 @@ urlpatterns = [
     path("detail/<posts_id>/", views.post_detail_view, name="post_detail_view"),
     path("update/<posts_id>/", views.update_post_view, name="update_post_view"),
     path("delete/<posts_id>", views.delete_post_view, name="delete_post_view"),
-    path("search/", views.search_view, name="search_view"),
-    path("category/", views.display_Blog_views, name="display_Blog_views"),
+    path("category/<item>/", views.display_Blog_views, name="display_Blog_views"),
 
 ]

@@ -25,19 +25,19 @@
               <li class="nav-item">
                 <a class="btn btn-primary" href="{% url 'posts:add_blog_view' %}">Add Blog</a>
               </li>
-              <li class="nav-item dropdown">
+              <li class="nav-item dropdown" action="{% url 'posts:post_home_view' %}" method="get">
                 <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'posts:display_Blog_views'%} ?category=Fashion ">Fashion</a></li>
-                  <li><a class="dropdown-item" href="{% url 'posts:display_Blog_views'%} ?category=Personal_blogs ">Personal blogs</a></li>
-                  <li><a class="dropdown-item" href="{% url 'posts:display_Blog_views'%} ?category=Lifestyle ">Lifestyle</a></li>
-                  <li><a class="dropdown-item" href="{% url 'posts:display_Blog_views'%} ?category=News_blogs">News blogs</a></li>
-                  <li><a class="dropdown-item" href="{% url 'posts:display_Blog_views'%} ?category=technology">technology</a></li>
+                  <li><a class="dropdown-item" href="{% url 'posts:display_Blog_views' 'Fashion' %}">Fashion</a></li>
+                  <li><a class="dropdown-item" href="{% url 'posts:display_Blog_views' 'Personal_blogs' %}">Personal blogs</a></li>
+                  <li><a class="dropdown-item" href="{% url 'posts:display_Blog_views' 'Lifestyle' %} ">Lifestyle</a></li>
+                  <li><a class="dropdown-item" href="{% url 'posts:display_Blog_views' 'News_blogs' %}">News blogs</a></li>
+                  <li><a class="dropdown-item" href="{% url 'posts:display_Blog_views' 'technology' %}">technology</a></li>
 
                 </ul>
               </li>
             </ul>
-            <form role="search" action="{% url 'posts:search_view' %}" method="get">
+            <form role="search" action="{% url 'posts:post_home_view' %}" method="get">
               <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
             </form>
           </div>
