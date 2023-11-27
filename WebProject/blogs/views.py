@@ -74,11 +74,8 @@ def search_page_view(request:HttpRequest):
 
 def blogs_home_view_cat(request:HttpRequest, cate):
 
-    if "value" in request.GET and request.GET["value"] == "cate":
-        blogs = Blog.objects.filter(category=cate).order_by("published_at")
-    else:
-        blogs = Blog.objects.filter(category=cate)
-
+    
+    blogs = Blog.objects.filter(category=cate).order_by("published_at")
     blogs_count = blogs.count()
 
     return render(request, "blogs/blogs_home.html", {"blogs" : blogs, "blogs_count" : blogs_count})
