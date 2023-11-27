@@ -55,10 +55,10 @@ def delete(request: HttpRequest, blog_id):
 def search(request: HttpRequest):
     if 'search' in request.GET:
         query = request.GET['search']
-        blog = Blog.objects.filter(title__icontains=query)
+        blogs = Blog.objects.filter(title__contains=query)
     else:
-         blog = Blog.objects.all()   
-    return render(request, 'blogs/search.html',  {"blog" : blog})
+         blogs = Blog.objects.all()   
+    return render(request, 'blogs/search.html',  {"blogs" : blogs})
 
 
 
