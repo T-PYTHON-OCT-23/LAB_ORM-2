@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% block contant %}
+
+<div class="detalis-contauner">
+    <div class="row">
+        <div class="col-5">
+            <h3>{{blogs.title}}</h3>
+            <img width="500px" height="200px"  src="{{blogs.image.url}}" />
+            <h3>{{blogs.content}}</h3>
+            <h3>{{blogs.is_published}}</h3>
+            <h3>{{blogs.published_at}}</h3>
+
+
+
+        </div>
+
+    </div>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Edit Post
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+          <li><a class="dropdown-item active" href="{% url 'blog:updated_blog' blogs.id %}">Update</a></li>
+          <li><a class="dropdown-item" href="{% url 'blog:delete_blog_views' blogs.id %}">Delete</a></li>
+        </ul>
+      </div>
+</div>
+
+
+
+
+{%endblock%}
