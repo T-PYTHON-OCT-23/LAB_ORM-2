@@ -11,7 +11,7 @@
     <h1>Update {{ post.title }}:</h1>
        <div class="col">
 
-             <form action="{% url 'post:update_post_view'  post.id%}" method="POST" enctype="multipart/form-data">
+             <form action="{% url 'post:update_post_view' post.id%}" method="POST" enctype="multipart/form-data" >
                 {% csrf_token %}
 
                 <label>Title Name:</label>
@@ -36,14 +36,13 @@
                  </label>
               </div>
               {% endfor %} 
-              <label> BLog Poster:</label>
+
+              <label> Blog Poster:</label>
               <input type="file" name="poster"  class="form-control" accept="image/*"/>
-              <label >Published Date:</label>
-              <input  class="form-control" name="published_at" type="date" />
               <h6>{{post.category}}</h6>
 
-                <label >Published Date:</label>
-                <input  class="form-control" name="published_at" type="date" value="{{post.published_at|date:'Y-m-d' }}"/>
+             <label >Published Date:</label>
+             <input  class="form-control" name="published_at" type="date" value="{{post.published_at|date:'Y-m-d' }}"/>
 
                 <input class="btn btn-primary mt-4" type="submit" value="Update Post" />
             </form>

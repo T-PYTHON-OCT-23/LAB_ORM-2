@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Blog
+from .models import Blog , Review
 from django.utils import timezone
 # Create your views here.
 
@@ -8,6 +8,7 @@ from django.utils import timezone
 def add_blog_view(request: HttpRequest):
     if request.method == "POST":
         new_blog = Blog(title=request.POST["title"], content=request.POST["content"], is_published=request.POST["is_published"], published_at=timezone.now(),category=request.POST["category"],poster=request.FILES["poster"])
+        
         new_blog.save()
 
         return redirect("post:display_blog_view")
@@ -16,8 +17,6 @@ def add_blog_view(request: HttpRequest):
 
 
 def display_blog_view(request: HttpRequest):
-     
-
      
     if "category" in request.GET and request.GET["category"] == "Educationl":
          posts = Blog.objects.filter( category__contains="Educationl")[0:10]
@@ -38,22 +37,27 @@ def display_blog_view(request: HttpRequest):
                     
     else:
      
-         posts = Blog.objects.all()
+         posts = Blog.objects.all().order_by("published_at")
 
+    
     posts_count = posts.count()  
 
     return render(request, "post/display_blog.html", {"posts": posts , "posts_count" : posts_count})
 
 
 def post_detail_view(request:HttpRequest, post_id):
- 
+    
     try:
-      post=Blog.objects.get(id=post_id )
-
+     post=Blog.objects.get(id=post_id )
+    
+     if request.method == "POST":
+         new_review = Review(post=post, full_name=request.POST["full_name"], rating=request.POST["rating"], comment=request.POST["comment"])
+         new_review.save()
     except Exception as e:
-        return render(request, "post/not_exist.html")
-        
-    return render(request, "post/post_detail.html", {"post" : post})
+       return render(request, "post/not_exist.html")
+    post_reviews = Review.objects.filter(post=post)
+    
+    return render(request, "post/post_detail.html", {"post" : post , "reviews" :post_reviews})
 
 
 
@@ -73,7 +77,8 @@ def update_post_view(request: HttpRequest, post_id):
         post.is_published = request.POST["is_published"]
         post.published_at = request.POST["published_at"]
         post.category = request.POST["category"]
-        post.poster=request.FILES["poster"]
+        if "poster" in request.FILES:
+            post.poster=request.FILES["poster"]
         post.save()
 
         return redirect('post:post_detail_view', post_id=post.id)
@@ -93,8 +98,8 @@ def search_post_view(request:HttpRequest ):
  # search_word=request.get["search"]
   
     if "search" in request.GET:
-        keyword = request.GET["search"]
-        posts = Blog.objects.filter(title__contains=keyword)
+        key = request.GET["search"]
+        posts = Blog.objects.filter(title__icontains=key)
     else:
         posts = Blog.objects.all()
 
@@ -105,9 +110,9 @@ def search_post_view(request:HttpRequest ):
 
 def display_blog_view_cat(request: HttpRequest, cat):
 
-    if "category" in request.GET and request.GET["category"] == "top":
-        posts = Blog.objects.filter(category=cat).order_by("-category")[0:5]
-    else:
+    if cat == "top":
+       # posts = Blog.objects.filter(c.order_by("-category")[0:5]
+    #else:
         posts = Blog.objects.filter(category=cat).order_by("-published_at")[0:5]
 
 

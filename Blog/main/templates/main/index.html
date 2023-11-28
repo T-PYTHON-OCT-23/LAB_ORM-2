@@ -18,15 +18,37 @@
         
        
         </div>
-        <hr />
+        <hr/>
 
         <div class="row">
             <div class="col">
-                <h3>something about post</h3>
+                <h3 class="h3">Customer Opinions</h3>
+                
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+   
             </div>
-
         </div>
 
     </div>
+    <br> 
+    <div class="container">
+    <div class="row g-3">
+        {% for r in review %}
+        <div  class="col-5 " >
+            <div class="d-flex flex-column gap-1 border border-1 p-3 comment" >    
 
+                <h3 >{{ r.full_name }}</h3>
+                <h6 class="text-muted">{{ r.created_at }}</h6>
+                <p>{{ r.comment }}</p>
+        
+            </div>
+
+        </div>
+{% endfor %}
+</div>
+</div>
 {% endblock %}
