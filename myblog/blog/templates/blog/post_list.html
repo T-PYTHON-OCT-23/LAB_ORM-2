@@ -54,12 +54,37 @@
             </div>
         {% endfor %}
 
+    
+    
         <!-- Add a link to the 'Add Post' page -->
         <a href="{% url 'blog:add_post' %}" class="btn btn-success">Add Post</a>
     </div>
+    <div class="comment-section">
+    {% if comments %}
+    <h3 class='comment'>last {{comments.count}} comments</h3>
+    {% for comment in comments %}
+    <div class="comment">
+        <a href="{% url 'blog:view_post' comment.post.id %}">
+            <h3>{{ comment.post.title }}</h3>
+        </a>
+
+        <p class="comment-content">{{ comment.content }}</p>
+        <p class="comment-meta">Published at: {{ comment.created_at }} by {{comment.name}}</p>
+
+        <!-- Edit Post button -->
+        <div class="edit-post-container">
+            <a href="{% url 'blog:update_post' comment.post.id %}" class="btn btn-edit-post">Edit Post</a>
+        </div>
+
+        <hr>
+    </div>
+</div>
+{% endfor %}
+{% endif %}
 
     <!-- Add inline styles (you can keep or modify them here) -->
     <style>
+            
         .post-list {
             max-width: 800px;
             margin: 0 auto;
@@ -77,7 +102,7 @@
             color: #007BFF;
             margin-bottom: 10px;
         }
-
+        
         .minimized-image-container {
             text-align: center;
             margin-bottom: 10px;
@@ -91,7 +116,85 @@
         .post-content {
             color: #555;
         }
-
+        /* Style for the comments section */
+        .comment-section {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        
+        /* Style for the heading "last comments" */
+        .comment-section h3.comment {
+            color: #007BFF;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        
+        /* Style for each individual comment */
+        .comment {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        
+        .comment a {
+            text-decoration: none;
+        }
+        
+        .comment h3 {
+            color: #007BFF;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+        
+        .comment-content {
+            color: #555;
+            margin-bottom: 12px;
+        }
+        
+        .comment-meta {
+            color: #777;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+        
+        .edit-post-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        /* Button styles */
+        .btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-edit-post {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+            transition: text-decoration 0.3s ease;
+        }
+        
+        .btn:hover {
+            text-decoration: none;
+        }
+        
+        .btn-edit-post:hover {
+            text-decoration: underline;
+        }
+        
+        .comment-section hr {
+            border-color: #ddd;
+            margin: 15px 0;
+        }
+        
         .post-meta {
             color: #777;
             font-style: italic;

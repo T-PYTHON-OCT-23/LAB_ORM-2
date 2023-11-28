@@ -1,8 +1,8 @@
 # blog/views.py
 from django.shortcuts import render, redirect , get_object_or_404
-from .models import Post
+from .models import Post , Comment
 from django.utils import timezone 
-from .forms import PostForm
+from .forms import PostForm , CommentForm
 
 
 CATEGORY_CHOICES = [
@@ -42,8 +42,9 @@ def post_list(request):
     if cat:
         posts = Post.objects.filter(category=cat)
 
-
-    return render(request, 'blog/post_list.html', {'posts': posts , 'categories': CATEGORY_CHOICES})
+    comments=Comment.objects.all().order_by('-created_at')[:5]
+    
+    return render(request, 'blog/post_list.html', {'posts': posts , 'categories': CATEGORY_CHOICES , 'comments' : comments})
 
 def add_post(request):
     if request.method == 'POST':
@@ -61,11 +62,21 @@ def add_post(request):
 
 
 def view_post(request, post_id):
-    #post = Post.objects.get(id=post_id)
-    post=get_object_or_404(Post, id=post_id)
-    return render(request, 'blog/view_post.html', {'post': post})
-    #raise Http404("Post does not exist")
-    
+    post = get_object_or_404(Post, id=post_id)
+    comments = post.comments.all().order_by('-created_at')
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return redirect('blog:view_post', post_id=post.id)
+    else:
+        form = CommentForm()
+
+    return render(request, 'blog/view_post.html', {'post': post, 'comments': comments, 'form': form})
+
 def update_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 

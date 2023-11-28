@@ -4,26 +4,40 @@
 {% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-    <div class="post-detail">
-        <h2>{{ post.title }}</h2>
-        <p class="post-meta">Published at: {{ post.published_at }}</p>
-        
-        <!-- Example img tag, replace 'your_image_path' with the actual image path -->
-        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
+<div class="post-detail">
+    <h2>{{ post.title }}</h2>
+    <p class="post-meta">Published at: {{ post.published_at }}</p>
+    
+    <!-- Example img tag, replace 'your_image_path' with the actual image path -->
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="post-image">
 
-        <div class="post-content">
-            {{ post.content | safe }}
-        </div>
-
-        <!-- Action buttons -->
-        <div class="action-buttons">
-            <!-- Back to Posts button -->
-            <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">Back to Posts</a>
-
-            <!-- Edit button -->
-            <a href="{% url 'blog:update_post' post.id %}" class="btn btn-primary">Edit</a>
-        </div>
+    <div class="post-content">
+        {{ post.content | safe }}
     </div>
+    
+    {% for comment in comments %}
+        <div class="comment">
+            <p class="comment-meta">Comment by {{ comment.name }} on {{ comment.created_at }}</p>
+            <p class="comment-content">{{ comment.content }}</p>
+        </div>
+    {% endfor %}
+
+    <form method="post" action="{% url 'blog:view_post' post.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Add Comment</button>
+    </form>
+
+    <!-- Action buttons -->
+    <div class="action-buttons">
+        <!-- Back to Posts button -->
+        <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">Back to Posts</a>
+
+        <!-- Edit button -->
+        <a href="{% url 'blog:update_post' post.id %}" class="btn btn-primary">Edit</a>
+    </div>
+</div>
+
 
     <!-- Add inline styles for post detail (you can keep or modify them here) -->
     <style>
@@ -90,7 +104,58 @@
         .btn:hover {
             text-decoration: none;
         }
-
+        /* Add this CSS to style your form */
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        /* Add this CSS to style the comments section */
+        .comment {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .comment-meta {
+            color: #777;
+            font-style: italic;
+            margin-bottom: 5px;
+        }
+        
+        .comment-content {
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
         .btn-secondary:hover {
             background-color: #5A6268;
         }
