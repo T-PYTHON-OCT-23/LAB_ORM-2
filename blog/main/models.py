@@ -15,3 +15,11 @@ class Blog(models.Model):
     category = models.CharField(
         max_length=2048, choices=categories.choices, default="Coffee")
     image = models.ImageField(upload_to="image/", default="image/default.jpg")
+
+
+class Review(models.Model):
+    Blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=512)
+    rating = models.FloatField()
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)

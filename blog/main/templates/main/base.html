@@ -21,6 +21,7 @@
     body {
         font-family: 'Playfair Display', serif;
         background-color: rgb(228, 194, 214);
+        overflow-x: hidden;
     }
 
     nav {
@@ -42,6 +43,7 @@
         font-size: 20px;
         text-decoration: none;
         color: black;
+        font-family: 'Playfair Display', serif;
     }
 
     .links:hover {
@@ -55,41 +57,28 @@
         width: 500px;
         height: auto;
         margin: 15px;
-        box-shadow: 3px 3px 10px rgba(25, 1, 1, 0.315)
-    }
-
-    .form-contro2 {
-        width: 1500px;
-        height: 550px;
-        box-shadow: 3px 3px 10px rgba(25, 1, 1, 0.315)
-    }
-
-    .box {
-        background-color: rgb(228, 194, 214);
-        width: 350px;
-        height: auto;
-        border: 1px solid rgb(11, 1, 1);
-        border-radius: 20px;
         box-shadow: 3px 3px 10px rgba(25, 1, 1, 0.315);
-        padding-left: 20px;
-        margin: 15px;
-        background-color: rgba(255, 235, 205, 0.461);
+        font-family: 'Playfair Display', serif;
     }
 
-    .box a {
+    .col a {
+        font-family: 'Playfair Display', serif;
         text-decoration: none;
     }
 
-    .box a:hover {
+    .col a:hover {
         color: blueviolet;
-        transition-duration: 0.5s;
+        transition-duration: 0.2s;
     }
 
     .h1 {
+        font-family: 'Playfair Display', serif;
         font-size: 25px;
+        color: black;
     }
 
-    .title1 {
+    .home-title {
+        font-family: 'Playfair Display', serif;
         width: 75%;
         font-size: 55px;
         background-color: rgba(0, 0, 0, 0.267);
@@ -102,47 +91,113 @@
     }
 
     .title {
-        font-size: 30px;
+        font-family: 'Playfair Display', serif;
+        width: 45%;
+        font-size: 35px;
         text-shadow: 3px 3px 10px rgba(14, 9, 0, 0.527);
-        padding-left: 30px;
-        margin-left: 30px;
-    }
-
-    .row {
-        display: flex;
-        flex-direction: row;
-        gap: 15px;
+        padding-left: 150px;
+        margin-top: 10px;
+        margin-left: 150px;
+        background-color: rgba(0, 0, 0, 0.267);
+        border: 1px solid rgba(245, 245, 220, 0);
+        border-radius: 10px;
     }
 
     .dropdown-menu {
+        font-family: 'Playfair Display', serif;
         list-style: none;
+        margin: 10px;
     }
 
     .dropdown-menu a {
+        font-family: 'Playfair Display', serif;
         text-decoration: none;
     }
 
-    div .detail {
-        background-color: rgb(241, 176, 215);
-        font-family: 'Times New Roman', Times, serif;
-        border-radius: 20px;
-        margin-left: -20px;
-        padding-left: 25px;
-        padding-bottom: 10px;
-    }
 
     img {
-        width: 45px;
+        width: 275px;
         height: auto;
+        border-radius: 3px;
+        margin-top: 5px;
+        margin-left: 25px;
+    }
+
+    .row {
+        font-family: 'Playfair Display', serif;
+    }
+
+    .container {
+        margin-left: 250px;
+    }
+
+    .review {
+        width: 50%;
+        padding-left: 30px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 20px;
+        margin: 10px 10px 10px 85px;
+        background-color: rgba(0, 0, 0, 0.267);
+        border: 1px solid rgba(245, 245, 220, 0);
+        border-radius: 10px;
+
+    }
+
+    .form-select {
+        padding-left: 55px;
+        margin-left: 15px;
+        background-color: rgba(0, 0, 0, 0.267);
+        border: 1px solid rgba(245, 245, 220, 0);
         border-radius: 10px;
     }
+
+    .detail_blog {
+        width: 90%;
+        margin: 10px 40px 10px 70px;
+        border-radius: 10px;
+    }
+
+    .detail-image {
+        width: 55%;
+        height: auto;
+        margin-left: 220px;
+        margin-top: -40px;
+        border-radius: 20px;
+    }
+
+    .category {
+        width: 10%;
+        padding-left: 15px;
+        background-color: rgba(0, 0, 0, 0.267);
+        border-radius: 10px;
+    }
+
 </style>
 
 <body>
-    <nav>
+    <nav class="nav">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+            id="button">
+            category </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'main:read_blog' %}?category=Coffee"> Coffee </a>
+            </li>
+            <li><a class="dropdown-item" href="{% url 'main:read_blog' %}?category=Tea"> Tea </a></li>
+            <li><a class="dropdown-item" href="{% url 'main:read_blog' %}?category=Matcha"> Matcha </a>
+            </li>
+            <li><a class="dropdown-item" href="{% url 'main:read_blog' %}?category=Water"> Water </a>
+            </li>
+        </ul>
+
         <a href="/" class="links"> Home </a>
         <a href="{% url 'main:add_blog' %}" class="links"> Add Blog </a>
         <a href="{% url 'main:read_blog' %}" class="links"> Read Blogs </a>
+
+        <form role="search" action="{% url 'main:search' %}" method="get">
+            <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+        </form>
+
     </nav>
 
     {% block content %}

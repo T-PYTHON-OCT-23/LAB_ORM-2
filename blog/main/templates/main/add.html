@@ -14,6 +14,7 @@
                 {% csrf_token %}
                 <label> Blog Name: </label><br>
                 <input class="form-control" type="text" name="name" placeholder="Add a title for your blog..." />
+
                 {% for key, value in categories.choices %}
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
@@ -24,7 +25,7 @@
                 {% endfor %}
 
                 <label> Write your Blog:</label><br>
-                <textarea class="form-control" name="paragraph"></textarea>
+                <textarea class="form-control" name="paragraph" placeholder=" Write..."></textarea>
 
                 <label> Blog Release Date: </label><br>
                 <input class="form-control" name="release_date" type="date" />

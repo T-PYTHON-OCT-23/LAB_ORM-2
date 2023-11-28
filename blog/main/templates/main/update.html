@@ -1,48 +1,40 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Read All Blogs {% endblock %}
+{% block title %} Update Blog {% endblock %}
 
 {% block content %}
 
 <div class="update">
     <div class="row">
-        <h2> Update {{blog.name}} </h3>
-            <br>
-            <br>
-            <div class="col">
-                {% csrf_token %}
-                <label> Blog Name:</label>
-                <input class="form-control" type="text" name="name" placeholder="Enter blog name.."
-                    value="{{blog.name}}" />
-                <br>
-                <br>
+        <h2> Update {{blog.name}} </h2>
+        <div class="col">
+            {% csrf_token %}
+            <label> Blog Name:</label>
+            <input class="form-control" type="text" name="name" placeholder="Enter blog name.." value="{{blog.name}}" />
 
-                <label> Blog Paragraph: </label>
-                <textarea class="form-control" name="paragraph">{{blog.paragraph}} </textarea>
-                <br>
-                <br>
-                <label>Category:</label>
-                {% for key, value in categories.choices %}
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{key}}" {% if
-                        blog.category==key %} checked {% endif %}>
-                    <label class="form-check-label" for="{{key}}">
-                        {{value}}
-                    </label>
-                </div>
-                {% endfor %}
-                <br>
-                <br>
-                <label>Image:</label>
-                <input type="file" name="image" class="form-control" accept="image/*" />
-                <br>
-                <br>
-                <label> Blog Release Date: </label>
-                <input class="form-control" name="release_date" value="{{blog.release_date|date:'Y-m-d'}}" />
-                <br>
-                <input class="btn btn-primary mt-2" type="submit" value="Update Blog" />
-                </form>
+            <label> Blog Paragraph: </label>
+            <textarea class="form-control" name="paragraph">{{blog.paragraph}} </textarea>
+
+            <label>Category:</label>
+            {% for key, value in categories.choices %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{key}}" {% if
+                    blog.category==key %} checked {% endif %}>
+                <label class="form-check-label" for="{{key}}">
+                    {{value}}
+                </label>
             </div>
+            {% endfor %}
+
+            <label>Image:</label>
+            <input type="file" name="image" class="form-control" accept="image/*" />
+
+            <label> Blog Release Date: </label>
+            <input class="form-control" name="release_date" value="{{blog.release_date|date:'Y-m-d'}}" />
+
+            <input class="btn btn-secondary mt-2" type="submit" value="Update Blog" />
+            </form>
+        </div>
     </div>
 </div>
 

@@ -4,30 +4,27 @@
 
 {% block content %}
 
-<section>
+
+<section class="container">
 
     <h1 class="title">All Blogs</h1>
 
-    <div class="row">
+    <div class="row gap-5 row-cols-1 row-cols-md-3">
 
-        {% for blog in blogs %}
+        {% for blog in blog %}
 
-        <div class="col-6">
-            <div class="box">
-                <a href="{% url 'main:detail_blog' blog.id %}" class="h1"> {{ blog.name }} {{ blog.id }}</a>
-                <h4> paragraph: {{blog.paragraph}}</h4>
-                <h4> category: {{ blog.category }}</h4>
-                <h4><img src="{{blog.image.url}}" /></h4>
-                <h6>Release Date: {{ blog.release_date }} </h6>
-                <button class="btn btn-primary dropdown-toggle" type="botton" data-bs-toggle="dropdown" aria-e>
-                    category
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'blog:read_blog' %}?category=Coffee"> Coffee </a></li>
-                    <li><a class="dropdown-item" href="{% url 'blog:read_blog' %}?category=Tea"> Tea </a></li>
-                    <li><a class="dropdown-item" href="{% url 'blog:read_blog' %}?category=Matcha"> Matcha </a></li>
-                    <li><a class="dropdown-item" href="{% url 'blog:read_blog' %}?category=Water"> Water </a></li>
-                </ul>
+        <div>
+            <div class="col">
+                <div class="d-flex flex-column gap-1 p-3 border border-1 rounder-6 shadow h-100">
+                    <img src="{{blog.image.url}}" /><br>
+                    <a href="{% url 'main:detail_blog' blog.id %}" class="h1"> {{ blog.name }} {{ blog.id }}</a>
+                    <h5> {{blog.paragraph}}</h5>
+                    <h6>Release Date: {{ blog.release_date }} </h6>
+                    <button class="btn btn-secondary" type="botton" aria-e>
+                        {{blog.category}}
+                    </button>
+                </div>
+
             </div>
         </div>
         {% endfor %}

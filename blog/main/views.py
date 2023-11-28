@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Blog
+from .models import Blog, Review
 
 # Create your views here.
 
@@ -22,28 +22,20 @@ def add_blog(request: HttpRequest):
 
 def read_blog(request: HttpRequest):
 
-    if "category" in request.GET and request.GET["category"] == "Coffee":
-        blog = Blog.objects.filter(category__contains="Coffee")
-
-    elif "category" in request.GET and request.GET["category"] == "Tea":
-        blog = Blog.objects.filter(category__contains="Tea")
-
-    elif "category" in request.GET and request.GET["category"] == "Matcha":
-        blog = Blog.objects.filter(category__contains="Matcha")
-
-    elif "category" in request.GET and request.GET["category"] == "Water":
-        blog = Blog.objects.filter(category__contains="Water")
-
-    else:
-        blog = Blog.objects.all()
+    blog = Blog.objects.all()
 
     return render(request, "main/read.html", {"blog": blog})
 
 
 def detail_blog(request: HttpRequest, blog_id):
-    blog = Blog.objects.get(id=blog_id)
+    blog_detail = Blog.objects.get(id=blog_id)
+    if request.method == "POST":
+        new_blog = Review(
+            Blog=blog_detail, full_name=request.POST["full_name"], rating=request.POST["rating"], comment=request.POST["comment"])
+        new_blog.save()
 
-    return render(request, "main/detail.html", {"blog": blog})
+    review = Review.objects.filter(Blog=blog_detail)
+    return render(request, "main/detail.html", {"blog": blog_detail, "review": review})
 
 
 def update_blog(request: HttpRequest, blog_id):
@@ -57,7 +49,7 @@ def update_blog(request: HttpRequest, blog_id):
         Blog.image = request.FILES["image"]
         Blog.save()
 
-        return redirect("main:read_blog", blog_id=Blog.id)
+        return redirect("main:read_blog", blog_id=blog.id)
     return render(request, "main/update.html", {"blog": blog},  {"categories": Blog.categories})
 
 
@@ -71,7 +63,7 @@ def search(request: HttpRequest):
 
     if "search" in request.GET:
         keyword = request.GET["search"]
-        blog = Blog.objects.filter(name__icontains=keyword)
+        blog = Blog.objects.filter(name__contains=keyword)
     else:
         blog = Blog.objects.all()
 
