@@ -9,7 +9,7 @@ class PostAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('name', 'post', 'created_at')
-    list_filter = ('created_at',)
+    list_filter = ('created_at','post')
     search_fields = ['name', 'content']
 
 
