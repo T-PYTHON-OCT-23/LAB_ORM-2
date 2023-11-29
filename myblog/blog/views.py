@@ -54,6 +54,8 @@ def add_post(request):
             post.is_published = True
             post.published_at = timezone.now()
             post.image = request.FILES['image'] 
+            print(post.image)
+            print(post.image.url)
             post.save()
             return redirect('/')
     else:
@@ -83,9 +85,9 @@ def update_post(request, post_id):
     if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            form.save()
             post.image = request.FILES['image']
             print(post.image) 
+            form.save()
             return redirect('blog:view_post', post_id=post.id)
     else:
         form = PostForm(instance=post)
