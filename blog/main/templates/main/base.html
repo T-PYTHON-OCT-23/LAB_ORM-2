@@ -85,7 +85,6 @@
         border-radius: 20px;
         text-shadow: 3px 3px 10px rgba(14, 9, 0, 0.527);
         padding-left: 130px;
-        padding-bottom: 50px;
         margin-top: 30px;
         margin-left: 150px;
     }
@@ -129,6 +128,7 @@
 
     .container {
         margin-left: 250px;
+        margin-bottom: 20px;
     }
 
     .review {
@@ -173,6 +173,47 @@
         border-radius: 10px;
     }
 
+    .update {
+        margin-left: 250px;
+        margin-bottom: 20px;
+    }
+
+    .home {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    #order {
+        margin-top: 35px;
+    }
+
+    .review-home {
+        margin-bottom: 20px;
+        width: 100%;
+        padding-top: 10px;
+        padding-left: 40px;
+        padding-bottom: 10px;
+        margin-top: 90px;
+        background-color: rgba(0, 0, 0, 0.128);
+        border: 1px solid rgba(245, 245, 220, 0);
+        border-radius: 5px;
+    }
+
+    .box-review {
+        display: flex;
+        flex-direction: row;
+        gap: 25px;
+        margin-left: 40px;
+    }
+
+    input:valid {
+        border-color: rgb(19, 250, 19);
+    }
+
+    input:invalid {
+        border-color: red;
+    }
 </style>
 
 <body>
@@ -181,12 +222,12 @@
             id="button">
             category </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'main:read_blog' %}?category=Coffee"> Coffee </a>
+            <li><a class="dropdown-item" name="category" href="{% url 'main:read_blog' %}?category=Coffee"> Coffee </a>
             </li>
-            <li><a class="dropdown-item" href="{% url 'main:read_blog' %}?category=Tea"> Tea </a></li>
-            <li><a class="dropdown-item" href="{% url 'main:read_blog' %}?category=Matcha"> Matcha </a>
+            <li><a class="dropdown-item" name="category" href="{% url 'main:read_blog' %}?category=Tea"> Tea </a></li>
+            <li><a class="dropdown-item" name="category" href="{% url 'main:read_blog' %}?category=Matcha"> Matcha </a>
             </li>
-            <li><a class="dropdown-item" href="{% url 'main:read_blog' %}?category=Water"> Water </a>
+            <li><a class="dropdown-item" name="category" href="{% url 'main:read_blog' %}?category=Water"> Water </a>
             </li>
         </ul>
 

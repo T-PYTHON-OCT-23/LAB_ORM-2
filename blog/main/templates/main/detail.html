@@ -24,7 +24,7 @@
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'main:update_blog' blog.id %}"> update </a>
             </li>
-            <li><a class="dropdown-item" href="{% url 'main:delete_blog' blog.id %}"> delete</a>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"> delete</a>
             </li>
         </ul>
     </div>
@@ -73,5 +73,22 @@
     </section>
 </div>
 
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Blog</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                you are going to delete the Blog {{ blog.name }} , are you sure ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{% url 'main:delete_blog' blog.id %}" class="btn btn-danger">Yes, delete</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

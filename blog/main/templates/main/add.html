@@ -12,29 +12,33 @@
         <div class="col-6">
             <form action="{% url 'main:add_blog' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label> Blog Name: </label><br>
-                <input class="form-control" type="text" name="name" placeholder="Add a title for your blog..." />
+                <label><b> Blog Name:</b></label><br>
+                <input class="form-control" type="text" name="name" placeholder="Add a title for your blog..."
+                    required />
 
+                <label><b>Category:</b></label><br>
                 {% for key, value in categories.choices %}
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+                    <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}"
+                        required>
                     <label class="form-check-label" for="{{key}}">
                         {{value}}
                     </label>
                 </div>
                 {% endfor %}
 
-                <label> Write your Blog:</label><br>
-                <textarea class="form-control" name="paragraph" placeholder=" Write..."></textarea>
+                <label><b>Write your Blog:</b></label><br>
+                <textarea class="form-control" name="paragraph" placeholder=" Write..." required></textarea>
 
-                <label> Blog Release Date: </label><br>
-                <input class="form-control" name="release_date" type="date" />
+                <label><b> Blog Release Date: </b></label><br>
+                <input class="form-control" name="release_date" type="date" required />
 
-                <label>Blog Image:</label>
-                <input type="file" name="image" class="form-control" accept="image/*" />
+                <label><b> Blog Image: </b></label>
+                <input type="file" name="image" class="form-control" accept="image/*" required />
 
-                <input class="btn btn-primary" type="submit" value="Create Blog" />
+                <input class="btn btn-secondary" type="submit" value="Create Blog" />
             </form>
+            <br>
         </div>
     </div>
 </section>

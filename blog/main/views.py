@@ -6,7 +6,9 @@ from .models import Blog, Review
 
 
 def home(request: HttpRequest):
-    return render(request, "main/home.html")
+
+    review = Review.objects.all().order_by("-created_at")[0:5]
+    return render(request, "main/home.html", {"review":  review, })
 
 
 def add_blog(request: HttpRequest):
@@ -22,7 +24,20 @@ def add_blog(request: HttpRequest):
 
 def read_blog(request: HttpRequest):
 
-    blog = Blog.objects.all()
+    if "category" in request.GET and request.GET["category"] == "Coffee":
+        blog = Blog.objects.filter(category__icontains="Coffee")
+
+    elif "category" in request.GET and request.GET["category"] == "Tea":
+        blog = Blog.objects.filter(category__icontains="Tea")
+
+    elif "category" in request.GET and request.GET["category"] == "Matcha":
+        blog = Blog.objects.filter(category__icontains="Matcha")
+
+    elif "category" in request.GET and request.GET["category"] == "Water":
+        blog = Blog.objects.filter(category__icontains="Water")
+
+    else:
+        blog = Blog.objects.all()
 
     return render(request, "main/read.html", {"blog": blog})
 
@@ -38,32 +53,35 @@ def detail_blog(request: HttpRequest, blog_id):
     return render(request, "main/detail.html", {"blog": blog_detail, "review": review})
 
 
-def update_blog(request: HttpRequest, blog_id):
-    blog = Blog.objects.get(id=blog_id)
+try:
+    def update_blog(request: HttpRequest, blog_id):
+        blog = Blog.objects.get(id=blog_id)
 
-    if request.method == "POST":
-        Blog.name = request.POST["name"]
-        Blog.paragraph = request.POST["paragraph"]
-        Blog.release_date = request.POST["release_date"]
-        Blog.category = request.POST["category"]
-        Blog.image = request.FILES["image"]
-        Blog.save()
+        if request.method == "POST":
+            blog.name = request.POST["name"]
+            blog.paragraph = request.POST["paragraph"]
+            blog.release_date = request.POST["release_date"]
+            blog.category = request.POST["category"]
+            blog.image = request.FILES["image"]
+            blog.save()
 
-        return redirect("main:read_blog", blog_id=blog.id)
-    return render(request, "main/update.html", {"blog": blog},  {"categories": Blog.categories})
+            return redirect("main:read_blog")
+        return render(request, "main/update.html", {"blog": blog, "categories": Blog.categories})
+except Exception as e:
+    print(e)
 
 
 def delete_blog(request: HttpRequest, blog_id):
     blog = Blog.objects.get(id=blog_id)
-    Blog.delete()
-    return redirect(request, "main:read_blog", {"blog": blog})
+    blog.delete()
+    return redirect("main:read_blog")
 
 
 def search(request: HttpRequest):
 
     if "search" in request.GET:
         keyword = request.GET["search"]
-        blog = Blog.objects.filter(name__contains=keyword)
+        blog = Blog.objects.filter(blog__contains=keyword)
     else:
         blog = Blog.objects.all()
 
