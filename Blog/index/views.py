@@ -1,6 +1,6 @@
 from django.shortcuts import render ,redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Sport
+from .models import Sport ,Review
 # Create your views here.
 
 
@@ -26,8 +26,9 @@ def home_view (request : HttpRequest):
 
 def details_view(request : HttpRequest , sport_id):
     sport1 = Sport.objects.get(id =sport_id)
+    reviews = Review.objects.filter(sport=sport1)
     
-    return render (request,"index/details.html", {"sport1":sport1 ,"categories" : Sport.categories})
+    return render (request,"index/details.html", {"sport1":sport1 ,"categories" : Sport.categories, "reviews" : reviews})
 
 
 def update_view(request : HttpRequest , sport_id):
@@ -56,3 +57,16 @@ def delet_view(request : HttpRequest ,sport_id):
 
     return redirect("index:home_view")
 
+def add_review_view(request: HttpRequest, sport_id):
+
+    if request.method == "POST":
+
+        sport_obj = Sport.objects.get(id=sport_id)
+        new_review = Review(sport = sport_obj , full_name=request.POST["full_name"], rating=request.POST["rating"], comment=request.POST["comment"])
+        new_review.save()
+
+        return redirect("index:details_view", sport_id=sport_obj.id)
+    
+    
+    return render(request, "index/details.html")
+        

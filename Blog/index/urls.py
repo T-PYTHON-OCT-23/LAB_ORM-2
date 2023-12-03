@@ -9,4 +9,5 @@ urlpatterns = [
     path("details/<sport_id>/",views.details_view,name="details_view"),
     path("update/<sport_id>/",views.update_view,name="update_view"),
     path("delete/<sport_id>/",views.delet_view,name="delet_view"),
+    path("review/add/<sport_id>/",views.add_review_view,name="add_review_view"),
 ]

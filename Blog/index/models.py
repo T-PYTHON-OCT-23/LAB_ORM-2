@@ -14,3 +14,15 @@ class Sport(models.Model):
     rating = models.IntegerField()
     category = models.CharField(max_length=64, choices=categories.choices,default="Athletics")
     image = models.ImageField(upload_to="images/", default="images/default.jpg")
+
+
+
+class Review(models.Model):
+    sport = models.ForeignKey(Sport, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=512)
+    rating = models.IntegerField()
+    comment= models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) :
+        return f"{self.full_name} : {self.comment}"
